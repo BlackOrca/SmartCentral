@@ -17,8 +17,6 @@ namespace SmartCentral.Installers
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DataContext>();
-
-            services.AddScoped<IPostService, PostService>();
         }
     }
 }

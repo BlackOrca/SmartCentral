@@ -5,11 +5,9 @@ namespace SmartCentral.Domain
 {
     public class PostTag
     {
-        [ForeignKey(nameof(TagName))]
-        public virtual Tag Tag { get; set; }
-
         public string TagName { get; set; }
-        
+
+        [NotMapped]
         public virtual Post Post { get; set; }
 
         public Guid PostId { get; set; }

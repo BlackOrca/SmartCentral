@@ -12,7 +12,6 @@ namespace SmartCentral.Domain
 
         public string CreatorId { get; set; }
         
-        [ForeignKey(nameof(CreatorId))]
         public IdentityUser CreatedBy { get; set; }
 
         public DateTime CreatedOn { get; set; }

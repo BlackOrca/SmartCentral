@@ -226,14 +226,14 @@ namespace SmartCentral.Services
                 ExpiryDate = DateTime.UtcNow.AddMonths(6)
             };
 
-            await _context.RefreshTokens.AddAsync(refreshToken);
-            await _context.SaveChangesAsync();
+            //await _context.RefreshTokens.AddAsync(refreshToken);
+            //await _context.SaveChangesAsync();
             
             return new AuthenticationResult
             {
                 Success = true,
                 Token = tokenHandler.WriteToken(token),
-                RefreshToken = refreshToken.Token
+                //RefreshToken = refreshToken.Token
             };
         }
     }

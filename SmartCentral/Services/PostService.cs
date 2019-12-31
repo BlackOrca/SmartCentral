@@ -19,125 +19,135 @@ namespace SmartCentral.Services
 
         public async Task<List<Post>> GetPostsAsync(GetAllPostsFilter filter = null, PaginationFilter paginationFilter = null)
         {
-            var queryable = _dataContext.Posts.AsQueryable();
-            
-            if (paginationFilter == null)
-            {
-                return await queryable.Include(x => x.Tags).ToListAsync();
-            }
+            //var queryable = _dataContext.Posts.AsQueryable();
 
-            queryable = AddFiltersOnQuery(filter, queryable);
+            //if (paginationFilter == null)
+            //{
+            //    return await queryable.Include(x => x.Tags).ToListAsync();
+            //}
 
-            var skip = (paginationFilter.PageNumber - 1) * paginationFilter.PageSize;
-            return await queryable.Include(x => x.Tags)
-                .Skip(skip).Take(paginationFilter.PageSize).ToListAsync();
+            //queryable = AddFiltersOnQuery(filter, queryable);
+
+            //var skip = (paginationFilter.PageNumber - 1) * paginationFilter.PageSize;
+            //return await queryable.Include(x => x.Tags)
+            //    .Skip(skip).Take(paginationFilter.PageSize).ToListAsync();
+            return new List<Post>();
         }
 
         public async Task<Post> GetPostByIdAsync(Guid postId)
         {
-            return await _dataContext.Posts
-                .Include(x => x.Tags)
-                .SingleOrDefaultAsync(x => x.Id == postId);
+            //return await _dataContext.Posts
+            //    .Include(x => x.Tags)
+            //    .SingleOrDefaultAsync(x => x.Id == postId);
+            return new Post();
         }
 
         public async Task<bool> CreatePostAsync(Post post)
         {
-            post.Tags?.ForEach(x=>x.TagName = x.TagName.ToLower());
-            
-            await AddNewTags(post);
-            await _dataContext.Posts.AddAsync(post);
+            //post.Tags?.ForEach(x=>x.TagName = x.TagName.ToLower());
 
-            var created = await _dataContext.SaveChangesAsync();
-            return created > 0;
+            //await AddNewTags(post);
+            //await _dataContext.Posts.AddAsync(post);
+
+            //var created = await _dataContext.SaveChangesAsync();
+            //return created > 0;
+            return false;
         }
 
         public async Task<bool> UpdatePostAsync(Post postToUpdate)
         {
-            postToUpdate.Tags?.ForEach(x=>x.TagName = x.TagName.ToLower());
-            await AddNewTags(postToUpdate);
-            _dataContext.Posts.Update(postToUpdate);
-            var updated = await _dataContext.SaveChangesAsync();
-            return updated > 0;
+            //postToUpdate.Tags?.ForEach(x=>x.TagName = x.TagName.ToLower());
+            //await AddNewTags(postToUpdate);
+            //_dataContext.Posts.Update(postToUpdate);
+            //var updated = await _dataContext.SaveChangesAsync();
+            //return updated > 0;
+            return false;
         }
 
         public async Task<bool> DeletePostAsync(Guid postId)
         {
-            var post = await GetPostByIdAsync(postId);
+            //var post = await GetPostByIdAsync(postId);
 
-            if (post == null)
-                return false;
+            //if (post == null)
+            //    return false;
 
-            _dataContext.Posts.Remove(post);
-            var deleted = await _dataContext.SaveChangesAsync();
-            return deleted > 0;
+            //_dataContext.Posts.Remove(post);
+            //var deleted = await _dataContext.SaveChangesAsync();
+            //return deleted > 0;
+            return false;
         }
 
         public async Task<bool> UserOwnsPostAsync(Guid postId, string userId)
         {
-            var post = await _dataContext.Posts.AsNoTracking().SingleOrDefaultAsync(x => x.Id == postId);
+            //var post = await _dataContext.Posts.AsNoTracking().SingleOrDefaultAsync(x => x.Id == postId);
 
-            if (post == null)
-            {
-                return false;
-            }
+            //if (post == null)
+            //{
+            //    return false;
+            //}
 
-            if (post.UserId != userId)
-            {
-                return false;
-            }
+            //if (post.UserId != userId)
+            //{
+            //    return false;
+            //}
 
-            return true;
+            //return true;
+            return false;
         }
 
         public async Task<List<Tag>> GetAllTagsAsync()
         {
-            return await _dataContext.Tags.AsNoTracking().ToListAsync();
+            //return await _dataContext.Tags.AsNoTracking().ToListAsync();
+            return new List<Tag>();
         }
 
         public async Task<bool> CreateTagAsync(Tag tag)
         {
-            tag.Name = tag.Name.ToLower();
-            var existingTag = await _dataContext.Tags.AsNoTracking().SingleOrDefaultAsync(x => x.Name == tag.Name);
-            if (existingTag != null)
-                return true;
+            //tag.Name = tag.Name.ToLower();
+            //var existingTag = await _dataContext.Tags.AsNoTracking().SingleOrDefaultAsync(x => x.Name == tag.Name);
+            //if (existingTag != null)
+            //    return true;
 
-            await _dataContext.Tags.AddAsync(tag);
-            var created = await _dataContext.SaveChangesAsync();
-            return created > 0;
+            //await _dataContext.Tags.AddAsync(tag);
+            //var created = await _dataContext.SaveChangesAsync();
+            //return created > 0;
+            return false;
         }
 
         public async Task<Tag> GetTagByNameAsync(string tagName)
         {
-            return await _dataContext.Tags.AsNoTracking().SingleOrDefaultAsync(x => x.Name == tagName.ToLower());
+            //return await _dataContext.Tags.AsNoTracking().SingleOrDefaultAsync(x => x.Name == tagName.ToLower());
+            return new Tag();
         }
 
         public async Task<bool> DeleteTagAsync(string tagName)
         {
-            var tag = await _dataContext.Tags.AsNoTracking().SingleOrDefaultAsync(x => x.Name == tagName.ToLower());
+            //var tag = await _dataContext.Tags.AsNoTracking().SingleOrDefaultAsync(x => x.Name == tagName.ToLower());
 
-            if (tag == null)
-                return true;
+            //if (tag == null)
+            //    return true;
 
-            var postTags = await _dataContext.PostTags.Where(x => x.TagName == tagName.ToLower()).ToListAsync();
+            //var postTags = await _dataContext.PostTags.Where(x => x.TagName == tagName.ToLower()).ToListAsync();
 
-            _dataContext.PostTags.RemoveRange(postTags);
-            _dataContext.Tags.Remove(tag);
-            return await _dataContext.SaveChangesAsync() > postTags.Count;
+            //_dataContext.PostTags.RemoveRange(postTags);
+            //_dataContext.Tags.Remove(tag);
+            //return await _dataContext.SaveChangesAsync() > postTags.Count;
+            return false;
         }
 
         private async Task AddNewTags(Post post)
         {
-            foreach (var tag in post.Tags)
-            {
-                var existingTag =
-                    await _dataContext.Tags.SingleOrDefaultAsync(x =>
-                        x.Name == tag.TagName);
-                if (existingTag != null)
-                    continue;
+            //foreach (var tag in post.Tags)
+            //{
+            //    var existingTag =
+            //        await _dataContext.Tags.SingleOrDefaultAsync(x =>
+            //            x.Name == tag.TagName);
+            //    if (existingTag != null)
+            //        continue;
 
-                await _dataContext.Tags.AddAsync(new Tag
-                    {Name = tag.TagName, CreatedOn = DateTime.UtcNow, CreatorId = post.UserId});
-            }
+            //    await _dataContext.Tags.AddAsync(new Tag
+            //        {Name = tag.TagName, CreatedOn = DateTime.UtcNow, CreatorId = post.UserId});
+            //}
         }
         
         

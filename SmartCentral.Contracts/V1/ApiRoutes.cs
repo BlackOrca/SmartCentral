@@ -8,6 +8,26 @@
 
         public const string Base = Root + "/" + Version;
 
+        public static class Settings
+        {
+            public const string GetSpcSettings = Base + "/settings/spc";
+
+            public const string UpdateSpcSettings = Base + "/settings/spc/{spcId}";
+
+            public const string CreateSpcSettings = Base + "/settings/spc";
+
+            public const string DeleteSpcSettings = Base + "/settings/spc/{spcId}";
+
+
+            public const string GetSyncoLivingSettings = Base + "/settings/syncoliving";
+
+            public const string UpdateSyncoLivingSettings = Base + "/settings/syncoliving/{syncoLivingId}";
+
+            public const string CreateSyncoLivingSettings = Base + "/settings/syncoliving";
+
+            public const string DeleteSyncoLivingSettings = Base + "/settings/syncoliving/{syncoLivingId}";
+        }
+
         public static class Posts
         {
             public const string GetAll = Base + "/posts";
