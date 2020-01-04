@@ -14,6 +14,8 @@ namespace SmartCentral.MappingProfiles
                     opt.MapFrom(src => src.Tags.Select(x => new TagResponse{Name = x.TagName})));
             
             CreateMap<Tag, TagResponse>();
+
+            CreateMap<SpcAlarmSystem, SpcResponse>();
         }
     }
 }
